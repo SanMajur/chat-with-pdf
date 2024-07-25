@@ -11,9 +11,9 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <html lang="en">
+      <html lang="en" className="">
         <body
-          className={`min-h-screen h-screen overflow-hidden flex flex-col ${montserrat.className}`}
+          className={`min-h-screen h-screen overflow-hidden flex flex-col  ${montserrat.className}`}
         >
           {children}
         </body>

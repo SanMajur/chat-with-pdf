@@ -9,7 +9,7 @@ export default function DashboardLayout({
 }) {
   return (
     <ClerkLoaded>
-      <div className="flex-1 flex flex-col h-screen">
+      <div className="flex-1 flex flex-col h-screen dark:bg-gray-800">
         <Header />
         <main className="flex-1 overflow-y-auto"> {children}</main>
       </div>

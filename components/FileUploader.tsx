@@ -17,6 +17,9 @@ export default function FileUploader() {
   const { getRootProps, getInputProps, isDragActive, isFocused, isDragAccept } =
     useDropzone({
       onDrop,
+      accept: {
+        "application/pdf": [".pdf"],
+      },
     });
   return (
     <div className="flex flex-col gap-4 items-center max-w-7xl mx-auto">
