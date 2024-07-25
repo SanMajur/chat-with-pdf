@@ -1,6 +1,7 @@
 "use client";
-import { storage } from "@/firebase";
+import { db, storage } from "@/firebase";
 import { useUser } from "@clerk/nextjs";
+import { doc, setDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
@@ -54,7 +55,21 @@ export default function useUpload() {
         const downloadUrl = await getDownloadURL(uploadTask.snapshot.ref);
 
         setStatus(StatusText.SAVING);
+        await setDoc(doc(db, "users", user.id, "files", fileIdToUploadTo), {
+          name: file.name,
+          size: file.size,
+          type: file.type,
+          downloadUrl: downloadUrl,
+          ref: uploadTask.snapshot.ref.fullPath,
+          createdAt: new Date(),
+        });
+
+        setStatus(StatusText.GENERATING);
+        // Generate AI Embeddings..
+
+        setFileId(fileIdToUploadTo);
       }
     );
   };
+  return { progress, status, fileId, handleUpload };
 }
